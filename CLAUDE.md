@@ -24,9 +24,16 @@ These are ML-shaped problems: given features about the current state, predict th
 
 ## Skills
 
+### Decision Layer
 | Skill | What It Does |
 |-------|-------------|
-| `/ml-assess` | Evaluate whether a problem is ML-shaped — features, labels, and value proposition |
+| `/ml-pick` | Choose the right intelligence level — hardcoded rules vs learned weights vs embeddings vs SLMs vs LLMs |
+| `/ml-find` | Search HuggingFace and model registries for pre-trained models before training from scratch |
+| `/ml-assess` | Evaluate whether a specific problem is ML-shaped — features, labels, and value proposition |
+
+### Build Layer
+| Skill | What It Does |
+|-------|-------------|
 | `/ml-extract` | Design a feature extraction pipeline from local signals |
 | `/ml-train` | Build an offline training script with proper train/test split and evaluation |
 | `/ml-ship` | Package a trained model as a minimal static artifact for the target project |
@@ -45,6 +52,20 @@ These are ML-shaped problems: given features about the current state, predict th
 - `features.py.tmpl` — feature extraction module scaffold
 - `model.py.tmpl` — runtime inference module (stdlib only)
 - `evaluate.py.tmpl` — model evaluation and reporting
+
+## Reference Library (`reference/`)
+
+25 technique-specific skills on deck — not production skills, but a knowledge base agents can pull from when `/ml-pick` or `/ml-train` identifies a need. Organized by domain:
+
+**Core ML Techniques**: class-imbalance-strategy, ensemble-voting-systems, feature-selection-alpha, transfer-learning-small-data, neural-architecture-search, model-compression-deployment, model-benchmarking, batch-inference-optimization
+
+**Data Engineering**: automated-eda, data-quality-auditing, data-collection-enrichment, custom-metric-engineering, statistical-significance
+
+**Applied Domains**: price-prediction-pipelines, churn-attrition-prediction, sentiment-investment-signals, geospatial-ai, ai-process-mapping, ai-roi-quantification
+
+**LLM Patterns**: llm-classification-systems, llm-document-drafting, structured-json-output, local-llm-deployment, multimodal-document-understanding, analytics-dashboarding
+
+These are reference material. When an agent needs a specific technique (e.g., "my classes are imbalanced"), it reads the relevant reference skill for patterns and applies them within the ml-forge build pipeline.
 
 ## Related Forges
 
