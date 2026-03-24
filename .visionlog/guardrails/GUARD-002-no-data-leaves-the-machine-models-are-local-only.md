@@ -1,18 +1,28 @@
 ---
 id: "GUARD-002"
 type: "guardrail"
-title: "No data leaves the machine — models are local-only"
+title: "Project data stays local — web searches are fine"
 status: "active"
 date: "2026-03-24"
 ---
 
 ## Rule
-Every pattern ml-forge teaches must work entirely offline. No cloud APIs for training or inference. No telemetry. No data exfiltration. Models train on local data and ship as static artifacts.
+Project data (code, features, training data, model inputs) must not be sent to external services. Web searches for models, documentation, and technique references are fine — that's searching, not leaking.
 
 ## Why
-Privacy and trust. Users' project data, app inventories, and code patterns are sensitive. The value proposition is ML intelligence without the cloud tax.
+Privacy matters for user data. But searching HuggingFace for a pre-trained model or reading docs is normal development activity, not data exfiltration.
+
+## What's OK
+- Searching HuggingFace for pre-trained models (`/ml-find`)
+- Web searches for ML techniques, documentation, benchmarks
+- Downloading pre-trained model weights
+
+## What's NOT OK
+- Sending project source code to an external API for analysis
+- Uploading training data to a cloud training service
+- Using a cloud inference API where project data is the input
 
 ## Violation Examples
-- A template that calls an external API for training data
-- A skill that recommends sending features to a hosted model
-- Any pattern that requires network access at inference time
+- A template that sends feature vectors to a hosted model
+- A training pipeline that uploads labeled data to a cloud service
+- Shipping a model that calls home with inference inputs

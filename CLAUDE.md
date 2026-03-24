@@ -55,17 +55,13 @@ These are ML-shaped problems: given features about the current state, predict th
 
 ## Reference Library (`reference/`)
 
-25 technique-specific skills on deck — not production skills, but a knowledge base agents can pull from when `/ml-pick` or `/ml-train` identifies a need. Organized by domain:
+19 technique-specific skills on deck — not production skills, but a knowledge base agents pull from when `/ml-pick` or `/ml-train` identifies a need. See `reference/INDEX.md` for the full catalog organized by category:
 
-**Core ML Techniques**: class-imbalance-strategy, ensemble-voting-systems, feature-selection-alpha, transfer-learning-small-data, neural-architecture-search, model-compression-deployment, model-benchmarking, batch-inference-optimization
-
-**Data Engineering**: automated-eda, data-quality-auditing, data-collection-enrichment, custom-metric-engineering, statistical-significance
-
-**Applied Domains**: price-prediction-pipelines, churn-attrition-prediction, sentiment-investment-signals, geospatial-ai, ai-process-mapping, ai-roi-quantification
-
-**LLM Patterns**: llm-classification-systems, llm-document-drafting, structured-json-output, local-llm-deployment, multimodal-document-understanding, analytics-dashboarding
-
-These are reference material. When an agent needs a specific technique (e.g., "my classes are imbalanced"), it reads the relevant reference skill for patterns and applies them within the ml-forge build pipeline.
+- **Core ML Techniques** (7): class imbalance, ensembles, feature selection, benchmarking, statistical significance, transfer learning, NAS
+- **Production & Deployment** (3): model compression, batch inference, local LLM deployment
+- **Data & Features** (3): automated EDA, data quality, custom metrics
+- **Applied Patterns** (3): churn prediction, price prediction, sentiment signals
+- **LLM Integration** (3): classification, structured output, multimodal docs
 
 ## Related Forges
 
