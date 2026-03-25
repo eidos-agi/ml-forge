@@ -65,6 +65,7 @@ These are ML-shaped problems: given features about the current state, predict th
 
 ## Related Forges
 
-- **ship-forge** — first customer: ML-powered preflight that knows what checks matter
-- **test-forge** — second customer: context-aware target detection
+- **ship-forge** — `/ship-detect` uses ml-forge's decision framework for preflight intelligence
+- **test-forge** — deployment gap detection uses ml-forge's L0 heuristic pattern
+- **apple-a-day** — app similarity model follows ml-forge's train-offline-ship-constants pattern
 - **forge-forge** — the meta-forge that created this one
