@@ -1,7 +1,7 @@
 ---
 id: TASK-0001
 title: Battle-test /ml-pick on test-forge context detection
-status: In Progress
+status: Done
 created: '2026-03-24'
 priority: high
 milestone: MS-0001
@@ -53,3 +53,12 @@ The context detection problem IS ML-shaped when you factor in:
 4. Model replaces the heuristic, continues collecting feedback
 
 This is the hybrid approach from /ml-pick: L0 fallback + L1 that grows.
+
+## Completed
+
+Built and shipped to test-forge:
+- `context.py`: 12-signal feature extractor + L0 weights + prediction + feedback logging
+- `context_train.py`: graduates to L1 at 30+ examples
+- Wired into `test_this` — warns on deployment gap, logs every decision
+
+Commit: d393f77 on eidos-agi/test-forge

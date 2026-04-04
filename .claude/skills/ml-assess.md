@@ -45,27 +45,35 @@ Common label sources in the forge ecosystem:
 
 If you can't identify at least 50 labeled examples, the model won't generalize. Consider whether the hardcoded approach is actually fine.
 
-### Step 4: Compare Approaches
+### Step 4: Try L0 First (MANDATORY)
 
-Score each approach 1-5:
+Before comparing approaches, write the hardcoded solution. How many cases exist? Can you enumerate them? If the domain has <50 items, a lookup table almost certainly works.
 
-| Criterion | Hardcoded | ML Model | LLM Call |
-|-----------|-----------|----------|----------|
-| Accuracy on known cases | | | |
-| Generalization to new cases | | | |
-| Runtime speed | | | |
-| Runtime cost ($) | | | |
-| Maintenance burden | | | |
-| Explainability | | | |
-| Dep footprint | | | |
+**You must show the L0 sketch and identify where it fails before proceeding.** If you can't find concrete failures, the answer is: stay hardcoded.
 
-### Step 5: Recommend
+### Step 5: Compare Approaches (only if L0 has proven failures)
+
+Score each approach 1-5. **Criteria are weighted — simplicity wins ties.**
+
+| Criterion | Weight | Hardcoded | ML Model | LLM Call |
+|-----------|--------|-----------|----------|----------|
+| Accuracy on known cases | 2x | | | |
+| Runtime speed | 2x | | | |
+| Runtime cost ($) | 2x | | | |
+| Dep footprint | 2x | | | |
+| Generalization to new cases | 1x | | | |
+| Maintenance burden | 1x | | | |
+| Explainability | 1x | | | |
+
+Weighted total determines the winner. Simplicity criteria (speed, cost, deps) are double-weighted because complexity compounds over time. ML or LLM must win by a clear margin on the weighted total, not just edge out on generalization.
+
+### Step 6: Recommend
 
 One of:
-- **Use ML** — clear win on generalization, enough training data, reasonable feature extraction
-- **Stay hardcoded** — not enough training data, or the hardcoded list covers 95%+ of cases
-- **Use LLM** — problem requires natural language understanding that features can't capture
-- **Hybrid** — ML for scoring + hardcoded fallback for known cases
+- **Stay hardcoded** — the default. L0 covers the cases, or the domain is small enough that a lookup works. This is the answer until proven otherwise.
+- **Use ML** — L0 provably fails on concrete examples, enough training data exists, and the weighted scorecard clearly favors ML
+- **Use LLM** — problem requires natural language understanding that features can't capture, AND ensemble ML was considered and rejected
+- **Hybrid** — L0 for known cases + ML for the uncertain middle. Each layer earns its place.
 
 ### Output Format
 
@@ -73,16 +81,23 @@ One of:
 ## ML Assessment: <problem>
 
 ### Decision: Given <X>, predict <Y>
+### Domain size: <N items/cases — if <50, L0 is strongly favored>
+### L0 sketch: <what the hardcoded solution looks like>
+### L0 coverage: <N>/<total> cases covered
+### L0 failures: <concrete examples where L0 gives wrong answer, or "none found">
 ### Features: <N> signals identified, <M> are free/fast
 ### Labels: <source>, ~<N> examples
-### Recommendation: <Use ML | Stay hardcoded | Use LLM | Hybrid>
+### Recommendation: <Stay hardcoded | Use ML | Use LLM | Hybrid>
 ### Why: <1-2 sentences>
-### Next step: <what to do if ML is recommended>
+### Next step: <what to do — if "stay hardcoded", say so clearly>
 ```
 
 ## Rules
 
+- **Hardcoded is the default.** ML must earn its place with concrete evidence.
 - Be honest about when ML is overkill — a 20-line if/else that works is better than a model
 - Consider the maintenance cost: who retrains the model when the world changes?
 - Always check if enough labeled data exists before recommending ML
 - Never recommend cloud-based ML — local only (GUARD-002)
+- **Ensemble ML beats single LLM.** Before recommending L5+, ask: could 3 cheap classifiers voting do this?
+- A domain with <50 items is almost always L0. Don't overthink it.
